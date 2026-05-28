@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>MoneyGold Moçambique 2026 - Ganhe 10 MT por Anúncio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f1e;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d2b4e 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 1%, transparent 1%);
+            background-size: 50px 50px;
+            animation: moveDots 20s linear infinite;
+        }
+
+        @keyframes moveDots {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 40px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .login-card h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3a5f 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .year-badge {
+            background: #ffd700;
+            color: #1e3a5f;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1e3a5f;
+            font-size: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e3a5f 0%, #ffd700 100%);
+            color: #1e3a5f;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 95, 0.4);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .welcome-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #1e3a5f 0%, #ffd700 100%);
+            border-radius: 30px;
+            padding: 35px;
+            margin-bottom: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translate(-100%, -100%) rotate(45deg); }
+            100% { transform: translate(100%, 100%) rotate(45deg); }
+        }
+
+        .balance-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .balance-amount {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .balance-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ad-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(30, 58, 95, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.3);
+        }
+
+        .ad-card.disabled:hover {
+            transform: none;
+        }
+
+        .ad-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .ad-card:hover:not(.disabled)::before {
+            left: 100%;
+        }
+
+        .ad-card:hover:not(.disabled) {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.3);
+        }
+
+        .ad-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        .ad-value {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3a5f 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .cooldown-timer {
+            font-size: 14px;
+            color: #ef4444;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            width: 320px;
+            pointer-events: none;
+        }
+
+        .notification {
+            background: linear-gradient(135deg, #1e3a5f 0%, #ffd700 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 4.5s forwards;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        .reports-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 30px;
+        }
+
+        .report-item {
+            background: linear-gradient(95deg, #f8f9fa 0%, #fff 100%);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+
+        .withdraw-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Modal de Progresso */
+        .progress-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .progress-modal.active {
+            display: flex;
+        }
+
+        .progress-content {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .progress-bar-container {
+            background: #e5e7eb;
+            border-radius: 50px;
+            height: 30px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #1e3a5f 0%, #ffd700 100%);
+            width: 0%;
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 50px;
+        }
+
+        .share-whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 40px;
+            padding: 50px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .timer-circle {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: 800;
+            color: #1e3a5f;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            color: #1f2937;
+            padding: 15px 25px;
+            border-radius: 15px;
+            z-index: 2100;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .balance-amount { font-size: 36px; }
+            .balance-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .stat { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <div class="container">
+        <div id="loginScreen" class="screen active">
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <div class="logo">🇲🇿💰</div>
+                    <h1>MoneyGold Moçambique</h1>
+                    <div class="year-badge">⚡ 2026 - GANHE 10 MT POR ANÚNCIO ⚡</div>
+                    <p style="color: #6b7280; margin-bottom: 30px;">Ganhe Meticais assistindo anúncios!</p>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Nome de usuário">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Senha">
+                    </div>
+                    <button class="btn-primary" onclick="login()">
+                        <i class="fas fa-sign-in-alt"></i> Entrar / Cadastrar
+                    </button>
+                    <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
+                        <i class="fas fa-shield-alt"></i> Limite: 5 anúncios por dia | Saque mínimo: 50 MT
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="mainScreen" class="screen">
+            <div class="header">
+                <div class="welcome-badge">
+                    <i class="fas fa-user-circle"></i> <span id="usernameDisplay"></span>
+                </div>
+                <div class="welcome-badge">
+                    <i class="fas fa-calendar-alt"></i> 2026
+                </div>
+            </div>
+
+            <div class="balance-card">
+                <div class="balance-label">SEU SALDO TOTAL</div>
+                <div class="balance-amount" id="balanceAmount">0 MT</div>
+                <div class="balance-stats">
+                    <div class="stat">
+                        <i class="fas fa-video"></i>
+                        <div>Anúncios Hoje</div>
+                        <strong id="todayAds">0</strong><span>/5</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-trophy"></i>
+                        <div>Total Ganho</div>
+                        <strong id="totalEarned">0 MT</strong>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <div>Próximo Anúncio</div>
+                        <strong id="cooldownDisplay">Pronto</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-title">
+                    <i class="fas fa-play-circle" style="color: #1e3a5f;"></i>
+                    Anúncio Disponível - 10 MT por 5 segundos
+                </div>
+                <div class="ad-card" id="adButton" onclick="watchAd()">
+                    <div class="ad-icon">🎬</div>
+                    <div class="ad-value">10 MT</div>
+                    <div class="ad-timer"><i class="far fa-clock"></i> 5 segundos</div>
+                    <div id="cooldownMessage" class="cooldown-timer"></div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="section-title">
+                    <i class="fas fa-chart-bar" style="color: #10b981;"></i>
+                    Últimos Levantamentos em Tempo Real
+                </div>
+                <div class="reports-container" id="reports"></div>
+            </div>
+
+            <div class="withdraw-card">
+                <div class="section-title" style="justify-content: center; color: #92400e;">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Sistema de Saque - MZN
+                </div>
+                <div id="shareBox">
+                    <p style="margin-bottom: 15px;">⚠️ Para sacar, compartilhe com 10 amigos/grupos no WhatsApp!</p>
+                    <button class="btn-primary btn-withdraw" onclick="openProgressModal()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fas fa-dollar-sign"></i> Solicitar Saque (Mínimo 50 MT)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Progresso para Compartilhamento -->
+    <div id="progressModal" class="progress-modal">
+        <div class="progress-content">
+            <i class="fab fa-whatsapp" style="font-size: 48px; color: #25D366;"></i>
+            <h3 style="margin: 20px 0;">Compartilhe para Liberar o Saque!</h3>
+            <p>Compartilhe com <strong>10 amigos ou grupos</strong> no WhatsApp para liberar seu saque.</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p id="progressText">0% - Faltam 10 compartilhamentos</p>
+            <button class="share-whatsapp-btn" onclick="shareForProgress()">
+                <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+            </button>
+            <button class="btn-primary" onclick="closeProgressModal()" style="margin-top: 10px; background: #6b7280;">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Anúncio -->
+      <div id="adModal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-ad" style="font-size: 48px; color: #1e3a5f;"></i>
+            <h3 style="margin: 20px 0;">Assistindo Anúncio</h3>
+            <div class="timer-circle">
+                <svg width="150" height="150">
+                    <circle cx="75" cy="75" r="70"></circle>
+                    <circle class="timer-circle-progress" cx="75" cy="75" r="70" id="timerCircle"></circle>
+                </svg>
+                <div class="timer-text" id="timer">5</div>
+            </div>
+            <p>Você ganhará <strong>10 MT</strong> ao finalizar!</p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('moneygold_mz_2026_v2')) || {};
+        let currentUser = null;
+        let adTimer = null;
+        let cooldownTimer = null;
+        let currentProgress = 0;
+
+        const mocambicanNames = ["Carlos Mondlane", "Amélia Machel", "João Simango", "Fernanda Chissano", "Manuel Guebuza", "Helena Mutemba"];
+        const cities = ["Maputo", "Matola", "Beira", "Nampula", "Quelimane", "Tete"];
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        function showNotification(name, amount, location) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div class="notification-icon">💰</div>
+                <div class="notification-content">
+                    <div class="notification-title">🎉 NOVO LEVANTAMENTO!</div>
+                    <div class="notification-message"><strong>${name}</strong> de ${location} acabou de levantar <strong>${amount.toLocaleString()} MT</strong>!</div>
+                    <div class="notification-time">${new Date().toLocaleTimeString('pt-MZ')}</div>
+                </div>
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 5000);
+        }
+
+        setInterval(() => {
+            if (document.getElementById('mainScreen').classList.contains('active')) {
+                const randomName = mocambicanNames[Math.floor(Math.random() * mocambicanNames.length)];
+                const randomAmount = Math.floor(Math.random() * (500 - 50 + 1) + 50);
+                const randomCity = cities[Math.floor(Math.random() * cities.length)];
+                showNotification(randomName, randomAmount, randomCity);
+            }
+        }, 20000);
+
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            if (!username || !password) { showToast('Preencha todos os campos!', true); return; }
+
+            if (users[username]) {
+                if (users[username].password === password) {
+                    currentUser = users[username];
+                    currentUser.username = username;
+                    showToast('Login realizado!');
+                    loadMainScreen();
+                } else { showToast('Senha incorreta!', true); }
+            } else {
+                users[username] = {
+                    password: password, balance: 0, shared: false, withdraws: [],
+                    totalEarned: 0, todayAds: 0, lastAdDate: new Date().toDateString(),
+                    lastAdTime: 0, cooldownUntil: 0, location: cities[Math.floor(Math.random() * cities.length)]
+                };
+                currentUser = users[username];
+                currentUser.username = username;
+                localStorage.setItem('moneygold_mz_2026_v2', JSON.stringify(users));
+                showToast('Cadastro realizado!');
+                loadMainScreen();
+            }
+        }
+
+        function loadMainScreen() {
+            resetDailyAds();
+            document.getElementById('usernameDisplay').textContent = currentUser.username;
+            document.getElementById('loginScreen').classList.remove('active');
+            document.getElementById('mainScreen').classList.add('active');
+            updateBalance();
+            loadReports();
+            updateAdButtonState();
+        }
+
+        function resetDailyAds() {
+            const today = new Date().toDateString();
+            if (currentUser.lastAdDate !== today) {
+                currentUser.todayAds = 0;
+                currentUser.lastAdDate = today;
+                currentUser.cooldownUntil = 0;
+                saveUsers();
+            }
+        }
+
+        function updateBalance() {
+            document.getElementById('balanceAmount').textContent = `${currentUser.balance.toLocaleString()} MT`;
+            document.getElementById('totalEarned').textContent = `${(currentUser.totalEarned || 0).toLocaleString()} MT`;
+            document.getElementById('todayAds').textContent = currentUser.todayAds || 0;
+            saveUsers();
+        }
+
+        function updateAdButtonState() {
+            const adCard = document.getElementById('adButton');
+            const cooldownMsg = document.getElementById('cooldownMessage');
+            const now = Date.now();
+            
+            if (currentUser.todayAds >= 5) {
+                adCard.classList.add('disabled');
+                cooldownMsg.innerHTML = '<i class="fas fa-ban"></i> Limite diário atingido (5/5)';
+                return;
+            }
+            
+            if (currentUser.cooldownUntil && now < currentUser.cooldownUntil) {
+                const remaining = Math.ceil((currentUser.cooldownUntil - now) / 1000);
+                adCard.classList.add('disabled');
+                cooldownMsg.innerHTML = `<i class="fas fa-hourglass-half"></i> Aguarde ${remaining} segundos`;
+                
+                if (cooldownTimer) clearInterval(cooldownTimer);
+                cooldownTimer = setInterval(() => {
+                    const remainingNow = Math.ceil((currentUser.cooldownUntil - Date.now()) / 1000);
+                    if (remainingNow <= 0) {
+                        clearInterval(cooldownTimer);
+                        updateAdButtonState();
+                    } else {
+                        cooldownMsg.innerHTML = `<i class="fas fa-hourglass-half"></i> Aguarde ${remainingNow} segundos`;
+                    }
+                }, 1000);
+            } else {
+                adCard.classList.remove('disabled');
+                cooldownMsg.innerHTML = '<i class="fas fa-play-circle"></i> Disponível agora!';
+                if (cooldownTimer) clearInterval(cooldownTimer);
+            }
+        }
+
+        function watchAd() {
+            if (!currentUser) return;
+            if (currentUser.todayAds >= 5) {
+                showToast('❌ Limite diário de 5 anúncios atingido! Volte amanhã.', true);
+                return;
+            }
+            
+            const now = Date.now();
+            if (currentUser.cooldownUntil && now < currentUser.cooldownUntil) {
+                const remaining = Math.ceil((currentUser.cooldownUntil - now) / 1000);
+                showToast(`❌ Aguarde ${remaining} segundos para próximo anúncio!`, true);
+                return;
+            }
+            
+            const modal = document.getElementById('adModal');
+            modal.classList.add('active');
+            
+            let timeLeft = 5;
+            const timerElement = document.getElementById('timer');
+            const circle = document.getElementById('timerCircle');
+            const circumference = 2 * Math.PI * 70;
+            circle.style.strokeDasharray = circumference;
+            
+            if (adTimer) clearInterval(adTimer);
+            
+            adTimer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                const offset = circumference - (timeLeft / 5) * circumference;
+                circle.style.strokeDashoffset = offset;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(adTimer);
+                    window.open('https://omg10.com/4/11071028', '_blank');
+                    
+                    currentUser.balance += 10;
+                    currentUser.totalEarned = (currentUser.totalEarned || 0) + 10;
+                    currentUser.todayAds = (currentUser.todayAds || 0) + 1;
+                    currentUser.cooldownUntil = Date.now() + 10000;
+                    
+                    updateBalance();
+                    updateAdButtonState();
+                    showToast(`💰 Você ganhou 10 MT!`);
+                    addAutoReport(10);
+                    
+                    modal.classList.remove('active');
+                    timerElement.textContent = '5';
+                    circle.style.strokeDashoffset = circumference;
+                    saveUsers();
+                }
+            }, 1000);
+        }
+        function addAutoReport(amount) {
+            const reportsContainer = document.getElementById('reports');
+            const reportDiv = document.createElement('div');
+            reportDiv.className = 'report-item';
+            reportDiv.style.animation = 'fadeInUp 0.5s ease';
+            reportDiv.innerHTML = `
+                <div class="report-user">
+                    <i class="fas fa-user-circle" style="font-size: 32px;"></i>
+                    <div>
+                        <strong>${currentUser.username}</strong>
+                        <div style="font-size: 10px; color: #9ca3af;">Agora mesmo - +10 MT por anúncio</div>
+                    </div>
+                </div>
+                <div class="report-amount">+ 10 MT</div>
+            `;
+            reportsContainer.insertBefore(reportDiv, reportsContainer.firstChild);
+        }
+
+        function loadReports() {
+            const container = document.getElementById('reports');
+            container.innerHTML = '';
+            const mockReports = [
+                { user: "Carlos Mondlane", amount: 50, date: "2026-01-20 14:30", location: "Maputo" },
+                { user: "Amélia Machel", amount: 120, date: "2026-01-21 09:15", location: "Beira" },
+                { user: "João Simango", amount: 80, date: "2026-01-21 16:45", location: "Nampula" }
+            ];
+            mockReports.forEach(report => {
+                const div = document.createElement('div');
+                div.className = 'report-item';
+                div.innerHTML = `
+                    <div class="report-user">
+                        <i class="fas fa-user-circle"></i>
+                        <div><strong>${report.user}</strong><div style="font-size: 11px;">${report.location}</div></div>
+                    </div>
+                    <div class="report-amount">${report.amount} MT</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function openProgressModal() {
+            if (!currentUser) return;
+            if (currentUser.balance < 50) {
+                showToast(`❌ Saldo mínimo: 50 MT. Seu saldo: ${currentUser.balance} MT`, true);
+                return;
+            }
+            currentProgress = currentUser.shareProgress || 0;
+            updateProgressUI();
+            document.getElementById('progressModal').classList.add('active');
+        }
+
+        function updateProgressUI() {
+            const percent = (currentProgress / 10) * 100;
+            const cappedPercent = Math.min(percent, 90);
+            document.getElementById('progressBar').style.width = `${cappedPercent}%`;
+            document.getElementById('progressText').innerHTML = `${Math.floor(cappedPercent)}% - Faltam ${Math.max(0, 10 - currentProgress)} compartilhamentos<br><small style="color: #ef4444;">⚠️ Nunca atinge 100% para continuar compartilhando!</small>`;
+        }
+
+        function shareForProgress() {
+            const shareText = `🚀 GANHE DINHEIRO DE VERDADE! 🚀\n\n💰 Assista anúncios e ganhe 10 MT por cada um!\n📱 Limite de 5 anúncios por dia\n💵 Saque mínimo de apenas 50 MT via M-Pesa\n✅ Plataforma 100% PAGADORA em 2026!\n\n👉 Clique aqui e comece a ganhar AGORA: ${window.location.href}\n\nNão perca essa oportunidade! 🇲🇿`;
+            
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            currentProgress++;
+            currentUser.shareProgress = currentProgress;
+            saveUsers();
+            updateProgressUI();
+            
+            if (currentProgress >= 10) {
+                showToast(`✅ Você compartilhou ${currentProgress} vezes! Continue para liberar o saque!`);
+            }
+            
+            if (currentProgress >= 10 && currentUser.balance >= 50) {
+                setTimeout(() => {
+                    if (confirm(`🎉 Você compartilhou ${currentProgress} vezes! Deseja continuar compartilhando para aumentar as chances? O saque será liberado após mais compartilhamentos!`)) {
+                        // Não libera ainda - continua pedindo mais compartilhamentos
+                    }
+                }, 500);
+            }
+        }
+
+        function closeProgressModal() {
+            if (currentProgress >= 8) {
+                if (currentUser.balance >= 50) {
+                    processWithdraw();
+                }
+            } else {
+                showToast(`❌ Faltam ${10 - currentProgress} compartilhamentos para liberar o saque!`, true);
+            }
+            document.getElementById('progressModal').classList.remove('active');
+        }
+
+        function processWithdraw() {
+            const withdrawAmount = currentUser.balance;
+            const withdrawRecord = { amount: withdrawAmount, date: new Date().toLocaleString('pt-MZ') };
+            if (!currentUser.withdraws) currentUser.withdraws = [];
+            currentUser.withdraws.push(withdrawRecord);
+            
+            showNotification(currentUser.username, withdrawAmount, currentUser.location);
+            
+            currentUser.balance = 0;
+            currentUser.shareProgress = 0;
+            currentProgress = 0;
+            updateBalance();
+            saveUsers();
+            
+            showToast(`✅ Saque de ${withdrawAmount.toLocaleString()} MT solicitado! Enviaremos via M-Pesa em até 24h.`);
+            loadReports();
+        }
+         function saveUsers() {
+            localStorage.setItem('moneygold_mz_2026_v2', JSON.stringify(users));
+        }
+
+        document.getElementById('adModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                if (adTimer) clearInterval(adTimer);
+                this.classList.remove('active');
+                showToast('Anúncio cancelado!', true);
+            }
+        });
+
+        setInterval(() => saveUsers(), 5000);
+    </script>
+</body>
+</html>
