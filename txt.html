@@ -562,7 +562,7 @@
                     Sistema de Levantamento - MZN
                 </div>
                 <div id="shareBox">
-                    <p style="margin-bottom: 15px;">🎉 Complete seus objetivos para liberar o levantamento!</p>
+                    <p style="margin-bottom: 15px;">🎉 Quanto mais você compartilha, mais perto fica do seu levantamento!</p>
                     <button class="btn-primary btn-withdraw" onclick="openProgressModal()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                         <i class="fas fa-dollar-sign"></i> Solicitar Levantamento (Mínimo 50 MT)
                     </button>
@@ -575,7 +575,7 @@
     <div id="progressModal" class="progress-modal">
         <div class="progress-content">
             <i class="fab fa-whatsapp" style="font-size: 48px; color: #25D366;"></i>
-            <h3 style="margin: 20px 0;">Compartilhe e Aumente suas Chances!</h3>
+            <h3 style="margin: 20px 0;">Compartilhe e Aproxime-se do Levantamento!</h3>
             <p>Compartilhe com <strong>amigos e grupos</strong> no WhatsApp para liberar seu levantamento.</p>
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progressBar"></div>
@@ -583,9 +583,6 @@
             <p id="progressText">0% - Compartilhe para avançar</p>
             <button class="share-whatsapp-btn" onclick="shareForProgress()">
                 <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
-            </button>
-            <button class="btn-primary" onclick="checkAndWithdraw()" style="margin-top: 10px; background: #10b981;">
-                <i class="fas fa-check-circle"></i> Verificar e Levantar
             </button>
             <button class="btn-primary" onclick="closeProgressModal()" style="margin-top: 10px; background: #6b7280;">
                 Fechar
@@ -597,7 +594,7 @@
 
     <script>
         // Cache completo - Sistema de armazenamento local
-        let users = JSON.parse(localStorage.getItem('moneygold_mz_2026_v3')) || {};
+        let users = JSON.parse(localStorage.getItem('moneygold_mz_2026_v4')) || {};
         let currentUser = null;
         let adTimer = null;
         let cooldownTimer = null;
@@ -605,7 +602,7 @@
         let lastAdTime = 0;
 
         // Dados para notificações
-                const mocambicanNames = ["Carlos Mondlane", "Amélia Machel", "João Simango", "Fernanda Chissano", "Manuel Guebuza", "Helena Mutemba", "Ricardo Nunes", "Sofia Langa"];
+           const mocambicanNames = ["Carlos Mondlane", "Amélia Machel", "João Simango", "Fernanda Chissano", "Manuel Guebuza", "Helena Mutemba", "Ricardo Nunes", "Sofia Langa"];
         const cities = ["Maputo", "Matola", "Beira", "Nampula", "Quelimane", "Tete", "Inhambane", "Pemba"];
 
         function showToast(message, isError = false) {
@@ -669,7 +666,7 @@
                 };
                 currentUser = users[username];
                 currentUser.username = username;
-                localStorage.setItem('moneygold_mz_2026_v3', JSON.stringify(users));
+                localStorage.setItem('moneygold_mz_2026_v4', JSON.stringify(users));
                 showToast('Cadastro realizado com sucesso! Bem-vindo!');
                 loadMainScreen();
             }
@@ -748,7 +745,7 @@
                 showToast(`❌ Aguarde ${remaining} segundos para o próximo anúncio!`, true);
                 return;
             }
-           // Abrir link direto em nova página IMEDIATAMENTE
+       // Abrir link direto em nova página IMEDIATAMENTE
             window.open('https://omg10.com/4/11071028', '_blank');
             
             // Contagem regressiva visual
@@ -844,13 +841,18 @@
         }
 
         function updateProgressUI() {
-            const percent = Math.min((currentProgress / 10) * 100, 95);
-            document.getElementById('progressBar').style.width = `${percent}%`;
+            // A barra NUNCA passa dos 90% - esse é o requisito principal
+            let percent = (currentProgress / 10) * 100;
+            let displayPercent = Math.min(percent, 90); // TRAVADO NOS 90% MÁXIMO
+            
+            document.getElementById('progressBar').style.width = `${displayPercent}%`;
             const remaining = Math.max(0, 10 - currentProgress);
+            
             if (remaining === 0) {
-                document.getElementById('progressText').innerHTML = `🎉 ${Math.floor(percent)}% - Parabéns! Você já pode solicitar seu levantamento! 🎉`;
+                // Mesmo com 10 compartilhamentos, mostra 90%
+                document.getElementById('progressText').innerHTML = `🎉 ${displayPercent}% - Continue compartilhando para aumentar suas chances! Quanto mais compartilha, mais próximo do levantamento! 🎉`;
             } else {
-                document.getElementById('progressText').innerHTML = `${Math.floor(percent)}% - Compartilhe mais ${remaining} vez(es) para liberar o levantamento!`;
+                document.getElementById('progressText').innerHTML = `${displayPercent}% - Compartilhe mais ${remaining} vez(es) para continuar progredindo!`;
             }
         }
 
@@ -865,90 +867,57 @@
             saveToCache();
             updateProgressUI();
             
+            // A barra agora mostra no máximo 90%
+            let displayPercent = Math.min((currentProgress / 10) * 100, 90);
+            
             if (currentProgress >= 10) {
-                showToast(`🎉 Excelente! Você já completou os compartilhamentos! Agora clique em "Verificar e Levantar"`);
+                showToast(`🎉 Excelente! Você já compartilhou ${currentProgress} vezes! Continue compartilhando, a barra está em ${displayPercent}%! Quanto mais compartilha, mais perto do levantamento!`);
             } else {
-                showToast(`✅ Compartilhamento realizado! Faltam ${10 - currentProgress} compartilhamentos. Continue assim!`);
+                showToast(`✅ Compartilhamento realizado! Progresso: ${displayPercent}%. Faltam ${10 - currentProgress} compartilhamentos. Continue assim!`);
             }
         }
 
-        function checkAndWithdraw() {
+        function closeProgressModal() {
+            // Verifica se já tem muitos compartilhamentos mas a barra está em 90%
+            let displayPercent = Math.min((currentProgress / 10) * 100, 90);
+            
             if (currentProgress >= 10 && currentUser.balance >= 50) {
-                processWithdraw();
-                document.getElementById('progressModal').classList.remove('active');
+                // Mesmo com 90%, ainda pede mais compartilhamentos
+                showToast(`🎉 Continue compartilhando! Você está em ${displayPercent}% do objetivo. Quanto mais compartilha, mais chances de liberar o levantamento!`, false);
+                // Não libera o levantamento ainda - continua pedindo compartilhamentos
             } else if (currentUser.balance < 50) {
                 showToast(`❌ Saldo mínimo: 50 MT. Seu saldo: ${currentUser.balance} MT`, true);
             } else {
                 const remaining = 10 - currentProgress;
-                showToast(`❌ Faltam ${remaining} compartilhamento(s) para liberar o levantamento! Continue compartilhando!`, true);
+                if (remaining > 0) {
+                    showToast(`📢 Faltam ${remaining} compartilhamento(s)! Continue compartilhando para chegar aos 90% e liberar seu levantamento!`, false);
+                } else {
+                    showToast(`📢 Continue compartilhando! Quanto mais você compartilha, mais rápido liberamos seu levantamento!`, false);
+                }
             }
-        }
-
-        function processWithdraw() {
-            const withdrawAmount = currentUser.balance;
-            const withdrawRecord = { 
-                amount: withdrawAmount, 
-                date: new Date().toLocaleString('pt-MZ'),
-                method: 'M-Pesa'
-            };
-            
-            if (!currentUser.withdraws) currentUser.withdraws = [];
-            currentUser.withdraws.push(withdrawRecord);
-           // Mostrar notificação do levantamento
-            showNotification(currentUser.username, withdrawAmount, currentUser.location);
-            
-            // Adicionar ao relatório
-            const reportsContainer = document.getElementById('reports');
-            const reportDiv = document.createElement('div');
-            reportDiv.className = 'report-item';
-            reportDiv.style.background = 'linear-gradient(95deg, #d1fae5 0%, #a7f3d0 100%)';
-            reportDiv.innerHTML = `
-                <div class="report-user">
-                    <i class="fas fa-money-bill-wave" style="font-size: 28px; color: #059669;"></i>
-                    <div>
-                        <strong>LEVANTAMENTO - ${currentUser.username}</strong>
-                        <div style="font-size: 11px; color: #6b7280;">${currentUser.location}</div>
-                        <div style="font-size: 10px; color: #9ca3af;">${new Date().toLocaleString('pt-MZ')}</div>
-                    </div>
-                </div>
-                <div class="report-amount" style="color: #059669; font-weight: bold;">${withdrawAmount.toLocaleString()} MT</div>
-            `;
-            reportsContainer.insertBefore(reportDiv, reportsContainer.firstChild);
-            
-            // Resetar após levantamento
-            currentUser.balance = 0;
-            currentUser.sharedCount = 0;
-            currentProgress = 0;
-            updateBalance();
-            saveToCache();
-            
-            showToast(`✅ Levantamento de ${withdrawAmount.toLocaleString()} MT solicitado! Enviaremos via M-Pesa em até 24h.`);
-        }
-
-        function closeProgressModal() {
             document.getElementById('progressModal').classList.remove('active');
         }
 
         function saveToCache() {
-            localStorage.setItem('moneygold_mz_2026_v3', JSON.stringify(users));
+            localStorage.setItem('moneygold_mz_2026_v4', JSON.stringify(users));
             // Backup adicional no sessionStorage
-            sessionStorage.setItem('moneygold_backup', JSON.stringify(users));
+            sessionStorage.setItem('moneygold_backup_v4', JSON.stringify(users));
         }
 
         // Recuperar dados do cache em caso de perda
         function recoverFromCache() {
-            const cached = sessionStorage.getItem('moneygold_backup');
-            if (cached && !users) {
+            const cached = sessionStorage.getItem('moneygold_backup_v4');
+            if (cached && (!users || Object.keys(users).length === 0)) {
                 users = JSON.parse(cached);
-                localStorage.setItem('moneygold_mz_2026_v3', cached);
+                localStorage.setItem('moneygold_mz_2026_v4', cached);
             }
         }
 
         // Backup automático a cada 10 segundos
         setInterval(() => {
             if (users) {
-                localStorage.setItem('moneygold_mz_2026_v3', JSON.stringify(users));
-                sessionStorage.setItem('moneygold_backup', JSON.stringify(users));
+                localStorage.setItem('moneygold_mz_2026_v4', JSON.stringify(users));
+                sessionStorage.setItem('moneygold_backup_v4', JSON.stringify(users));
             }
         }, 10000);
 
